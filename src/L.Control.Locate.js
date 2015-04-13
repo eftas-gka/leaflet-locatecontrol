@@ -1,5 +1,5 @@
 /*!
-Copyright (c) 2014 Dominik Moritz
+Copyright (c) 2014, 2015 Dominik Moritz, Georg Kaspar
 
 This file is part of the leaflet locate control. It is licensed under the MIT license.
 You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
@@ -62,6 +62,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
                 //fillColor: '#FFB000'
             },
             icon: 'fa fa-map-marker',  // fa-location-arrow or fa-map-marker
+            iconFollowing: 'fa fa-map-marker',
             iconLoading: 'fa fa-spinner fa-spin',
             circlePadding: [0, 0],
             metric: true,
@@ -441,19 +442,22 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
                 L.DomUtil.addClasses(this._container, "requesting");
 
                 L.DomUtil.removeClasses(this._icon, this.options.icon);
+                L.DomUtil.removeClasses(this._icon, this.options.iconFollowing);
                 L.DomUtil.addClasses(this._icon, this.options.iconLoading);
             } else if (state == 'active') {
                 L.DomUtil.removeClasses(this._container, "requesting following");
                 L.DomUtil.addClasses(this._container, "active");
 
+                L.DomUtil.removeClasses(this._icon, this.options.iconFollowing);
                 L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
                 L.DomUtil.addClasses(this._icon, this.options.icon);
             } else if (state == 'following') {
                 L.DomUtil.removeClasses(this._container, "requesting");
                 L.DomUtil.addClasses(this._container, "active following");
 
+                L.DomUtil.removeClasses(this._icon, this.options.icon);
                 L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
-                L.DomUtil.addClasses(this._icon, this.options.icon);
+                L.DomUtil.addClasses(this._icon, this.options.iconFollowing);
             }
         },
 
@@ -465,6 +469,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             L.DomUtil.removeClass(this._container, "active");
             L.DomUtil.removeClass(this._container, "following");
 
+            L.DomUtil.removeClasses(this._icon, this.options.iconFollowing);
             L.DomUtil.removeClasses(this._icon, this.options.iconLoading);
             L.DomUtil.addClasses(this._icon, this.options.icon);
         },
